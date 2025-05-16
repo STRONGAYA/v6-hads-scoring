@@ -1,0 +1,5 @@
+vantage6-algorithm-tools
+pandas
+
+git+https://github.com/STRONGAYA/v6-tools-rdf.git@v0.1.0
+git+https://github.com/STRONGAYA/v6-tools-instruments-licenced.git@v0.1.0

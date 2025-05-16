@@ -1,0 +1,59 @@
+{
+  "name": "v6-hads-scoring",
+  "image": "v6-hads-scoring",
+  "vantage6_version": "4.6",
+  "code_url": "https://mygitrepo.org",
+  "documentation_url": "",
+  "partitioning": "horizontal",
+  "functions": [
+    {
+      "name": "central",
+      "description": "Vantage6 algorithm that performs hospital anxiety and depression scale (HADS) scoring.",
+      "type": "central",
+      "databases": [
+        {
+          "name": "Partial database 1"
+        }
+      ],
+      "arguments": [
+        {
+          "name": "items_to_score",
+          "type": "",
+          "description": ""
+        },
+        {
+          "name": "variables_to_stratify",
+          "type": "",
+          "description": ""
+        },
+        {
+          "name": "organisation_ids",
+          "type": "",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "name": "partial",
+      "description": "",
+      "type": "federated",
+      "databases": [
+        {
+          "name": "Database 1"
+        }
+      ],
+      "arguments": [
+        {
+          "name": "items_to_score",
+          "type": "",
+          "description": ""
+        },
+        {
+          "name": "variables_to_stratify",
+          "type": "",
+          "description": ""
+        }
+      ]
+    }
+  ]
+}
