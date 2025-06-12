@@ -5,6 +5,10 @@ FROM harbor2.vantage6.ai/infrastructure/algorithm-base
 # docker build with '--build-arg PKG_NAME=...'
 ARG PKG_NAME="v6-hads-scoring"
 
+RUN apt update && apt install -y \
+    git \
+    && rm -rf /var/lib/apt/lists/*
+
 # install federated algorithm
 COPY . /app
 RUN pip install /app
