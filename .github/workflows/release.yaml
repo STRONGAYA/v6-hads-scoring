@@ -23,6 +23,13 @@ jobs:
           username: ${{ secrets.MDW_ACR_USERNAME }}
           password: ${{ secrets.MDW_ACR_PASSWORD }}
 
+      - name: Set up SSH deploy key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.LICENCED_REPO_DEPLOY_KEY }}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan github.com >> ~/.ssh/known_hosts
+
       - name: Build and push Docker image
         uses: docker/build-push-action@v4
         with:
