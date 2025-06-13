@@ -1,3 +1,5 @@
+# syntax=docker/dockerfile:1.2
+
 # basic python3 image as base
 FROM harbor2.vantage6.ai/infrastructure/algorithm-base
 
@@ -11,7 +13,7 @@ RUN apt update && apt install -y \
 
 # install federated algorithm
 COPY . /app
-RUN pip install /app
+RUN --mount=type=ssh pip install /app
 
 
 # Set environment variable to make name of the package available within the
