@@ -14,7 +14,7 @@ RUN apt update && apt install -y \
 # install federated algorithm
 COPY . /app
 RUN --mount=type=ssh \
-    GIT_SSH_COMMAND="ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no" \
+    export GIT_SSH_COMMAND="ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no" && \
     pip install /app
 
 
