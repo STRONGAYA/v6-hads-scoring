@@ -31,8 +31,11 @@ jobs:
           chmod 600 ~/.ssh/id_ed25519
           ssh-add ~/.ssh/id_ed25519
           echo "SSH_AUTH_SOCK=$SSH_AUTH_SOCK" >> $GITHUB_ENV
+          echo "SSH_AGENT_PID=$SSH_AGENT_PID" >> $GITHUB_ENV
           # Test the connection
           ssh -T git@github.com -o StrictHostKeyChecking=no || true
+          # Verify key is loaded
+          ssh-add -l
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v4
@@ -41,6 +44,8 @@ jobs:
           push: true
           tags: medicaldataworks.azurecr.io/strongaya/${{ env.IMAGE_NAME }}:${{ github.ref_name }}
           ssh: default=${{ env.SSH_AUTH_SOCK }}
+        env:
+          SSH_AUTH_SOCK: ${{ env.SSH_AUTH_SOCK }}
 
   build-and-push-docs:
     runs-on: ubuntu-latest
