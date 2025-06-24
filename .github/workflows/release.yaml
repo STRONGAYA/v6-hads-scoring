@@ -26,6 +26,7 @@ jobs:
       - name: Set up SSH agent and add deploy key
         run: |
           eval "$(ssh-agent -s)"
+          mkdir -p ~/.ssh
           echo "${{ secrets.LICENCED_REPO_DEPLOY_KEY }}" > ~/.ssh/id_ed25519
           chmod 600 ~/.ssh/id_ed25519
           ssh-add ~/.ssh/id_ed25519
