@@ -22,7 +22,7 @@ setup(
     install_requires=[
         'vantage6-algorithm-tools',
         'pandas',
-        "vantage6-strongaya-rdf @ git+ssh://github.com/STRONGAYA/v6-tools-rdf.git@v0.1.0",
+        "vantage6-strongaya-rdf @ git+https://github.com/STRONGAYA/v6-tools-rdf.git@v0.1.0",
         "vantage6-strongaya-instruments-licenced @ git+ssh://github.com/STRONGAYA/v6-tools-instruments-licenced.git@v0.1.0"
     ]
 )
