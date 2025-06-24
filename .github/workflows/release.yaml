@@ -23,23 +23,15 @@ jobs:
           username: ${{ secrets.MDW_ACR_USERNAME }}
           password: ${{ secrets.MDW_ACR_PASSWORD }}
 
-      - name: Set up SSH agent and add deploy key
+      - name: Build and push Docker image
         run: |
           eval "$(ssh-agent -s)"
           mkdir -p ~/.ssh
           echo "${{ secrets.LICENCED_REPO_DEPLOY_KEY }}" > ~/.ssh/id_ed25519
           chmod 600 ~/.ssh/id_ed25519
           ssh-add ~/.ssh/id_ed25519
-          # Test the connection
           ssh -T git@github.com -o StrictHostKeyChecking=no || true
-
-      - name: Build and push Docker image
-        uses: docker/build-push-action@v4
-        with:
-          context: .
-          push: true
-          tags: medicaldataworks.azurecr.io/strongaya/${{ env.IMAGE_NAME }}:${{ github.ref_name }}
-          ssh: default
+          docker buildx build --ssh default --tag medicaldataworks.azurecr.io/strongaya/${{ env.IMAGE_NAME }}:${{ github.ref_name }} --push .
 
   build-and-push-docs:
     runs-on: ubuntu-latest
