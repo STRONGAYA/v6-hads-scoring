@@ -31,9 +31,7 @@ jobs:
           chmod 600 ~/.ssh/id_ed25519
           ssh-add ~/.ssh/id_ed25519
           ssh-keyscan github.com >> ~/.ssh/known_hosts
-
-      - name: Export SSH agent socket
-        run: echo "SSH_AUTH_SOCK=$SSH_AUTH_SOCK" >> $GITHUB_ENV
+          echo "SSH_AUTH_SOCK=$SSH_AUTH_SOCK" >> $GITHUB_ENV
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v4
