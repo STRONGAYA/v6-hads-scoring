@@ -30,13 +30,8 @@ jobs:
           echo "${{ secrets.LICENCED_REPO_DEPLOY_KEY }}" > ~/.ssh/id_ed25519
           chmod 600 ~/.ssh/id_ed25519
           ssh-add ~/.ssh/id_ed25519
-          ssh-keyscan github.com >> ~/.ssh/known_hosts
-          echo "SSH_AUTH_SOCK=$SSH_AUTH_SOCK" >> $GITHUB_ENV
-          # Configure SSH to skip host verification for GitHub
-          echo "Host github.com" >> ~/.ssh/config
-          echo "  StrictHostKeyChecking no" >> ~/.ssh/config
-          echo "  UserKnownHostsFile /dev/null" >> ~/.ssh/config
-          chmod 600 ~/.ssh/config
+          # Test the connection
+          ssh -T git@github.com -o StrictHostKeyChecking=no || true
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v4
@@ -45,8 +40,6 @@ jobs:
           push: true
           tags: medicaldataworks.azurecr.io/strongaya/${{ env.IMAGE_NAME }}:${{ github.ref_name }}
           ssh: default
-          build-args: |
-            GIT_SSH_COMMAND=ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no
 
   build-and-push-docs:
     runs-on: ubuntu-latest
