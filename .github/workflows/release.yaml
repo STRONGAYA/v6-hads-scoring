@@ -45,6 +45,8 @@ jobs:
           push: true
           tags: medicaldataworks.azurecr.io/strongaya/${{ env.IMAGE_NAME }}:${{ github.ref_name }}
           ssh: default
+          build-args: |
+            GIT_SSH_COMMAND=ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no
 
   build-and-push-docs:
     runs-on: ubuntu-latest
